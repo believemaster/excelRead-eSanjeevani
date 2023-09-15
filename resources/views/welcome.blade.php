@@ -18,7 +18,7 @@
 
     <nav class="navbar bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{{ route('home') }}">
                 <img src="{{ asset('img/eSanjeevaniLogo.svg') }}" alt="eSanjeevani"
                     class="d-inline-block align-text-top">
             </a>
@@ -53,7 +53,7 @@
 
                     <form action="{{ route('uploadCsv') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <label for="uploadFile" class="form-label h5">Upload The CSV File</label>
+                        <label for="uploadFile" class="form-label h5">Upload The Network Report CSV File <i class="fa fa-file-csv"></i></label>
 
                         <input id="uploadFile" type="file" class="form-control rounded-0" name="csvFile" />
 

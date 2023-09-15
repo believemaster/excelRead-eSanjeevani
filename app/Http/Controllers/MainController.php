@@ -88,16 +88,28 @@ class MainController extends Controller
 
     public function getFacts()
     {
-        $totalConsultations = NetworkReport::where('State', 'India')->get('Total_Consultation');
-        $totalHwc = NetworkReport::where('State', 'India')->get('Total_HWC');
-        $leadingStatesHwc = NetworkReport::where('State', 'not like', "%India%")
-            ->where("Total_Consultation", ">", 100)
-            ->get(['State', 'Total_Consultation']);
-        $opdServed = NetworkReport::where('State', 'India')->get('Total_OPD');
-        $leadingStatesOpd = NetworkReport::where('State', 'not like', "%India%")
-            ->where("Total_OPD", ">", 100)
-            ->get(['State', 'Total_OPD']);
+        if (NetworkReport::exists()) {
 
-        dd($leadingStatesOpd);
+            $totalConsultations = NetworkReport::where('State', 'India')->get('Total_Consultation');
+            $totalHwc = NetworkReport::where('State', 'India')->get('Total_HWC');
+            $leadingStatesHwc = NetworkReport::where('State', 'not like', "%India%")
+                ->where("Total_Consultation", ">", 100)
+                ->get(['State', 'Total_Consultation']);
+            $opdServed = NetworkReport::where('State', 'India')->get('Total_OPD');
+            $leadingStatesOpd = NetworkReport::where('State', 'not like', "%India%")
+                ->where("Total_OPD", ">", 100)
+                ->get(['State', 'Total_OPD']);
+
+            $spoke = NetworkReport::where('State', 'India')->get('Spoke');
+            $hub = NetworkReport::where('State', 'India')->get('Hub');
+
+            // dd($leadingStatesOpd);
+
+            // $data = ['totalConsultations', 'totalHwc', 'leadingStatesHwc', 'opdServed', 'leadingStatesOpd'];
+
+            return view('factData', compact('spoke', 'hub', 'totalConsultations', 'totalHwc', 'leadingStatesHwc', 'opdServed', 'leadingStatesOpd'));
+        } else {
+            return back()->with(['message' => 'Oops! There is no data to get the fact. Please upload Network Report First.', 'class' => 'warning', 'icon' => 'exclamation-triangle']);
+        }
     }
 }
