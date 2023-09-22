@@ -93,15 +93,19 @@ class MainController extends Controller
             $totalConsultations = NetworkReport::where('State', 'India')->get('Total_Consultation');
             $totalHwc = NetworkReport::where('State', 'India')->get('Total_HWC');
             $leadingStatesHwc = NetworkReport::where('State', 'not like', "%India%")
-                ->where("Total_Consultation", ">", 100)
-                ->get(['State', 'Total_Consultation']);
+                ->where("Total_HWC", ">", 100)
+                ->orderByDesc('Total_HWC')
+                ->get(['State', 'Total_HWC']);
             $opdServed = NetworkReport::where('State', 'India')->get('Total_OPD');
             $leadingStatesOpd = NetworkReport::where('State', 'not like', "%India%")
                 ->where("Total_OPD", ">", 100)
+                ->orderByDesc('Total_OPD')
                 ->get(['State', 'Total_OPD']);
 
             $spoke = NetworkReport::where('State', 'India')->get('Spoke');
             $hub = NetworkReport::where('State', 'India')->get('Hub');
+
+
 
             // dd($leadingStatesOpd);
 

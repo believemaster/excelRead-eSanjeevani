@@ -130,7 +130,7 @@
                                         $statesAcronym .= mb_substr($s, 0, 1);
                                     }
                                 @endphp
-                                {{ $statesAcronym }}- {{ $item->Total_Consultation }}
+                                {{ $statesAcronym }}- {{ $item->Total_HWC }}
 
                                 @if (!$loop->last)
                                     ,
